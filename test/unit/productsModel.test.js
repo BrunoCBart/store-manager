@@ -5,8 +5,8 @@ const connection = require('../../models/connection')
 
 const productsModel = require('../../models/productsModel')
 
-describe('Lista todos os produtos ou um produto específico', () => {
-  describe('Todos os produtos, mas sem produtos no BD', () =>{
+describe('Lista todos os produtos ou um produto específico no MODEL', () => {
+  describe('Todos os produtos, getAll, mas sem produtos no BD', () =>{
     const response = [[]]
     beforeEach(() => {
       sinon.stub(connection, 'execute').resolves(response)
@@ -27,7 +27,7 @@ describe('Lista todos os produtos ou um produto específico', () => {
     })
   })
 
-  describe('Todos os produtos, mas com produtos no BD', () => {
+  describe('Todos os produtos, getAll, mas com produtos no BD', () => {
     const products = [[
       {
       name: 'Bolo vegano',
@@ -58,7 +58,7 @@ describe('Lista todos os produtos ou um produto específico', () => {
     })
   })
 
-  describe('Produto específico', () => {
+  describe('Produto específico getById', () => {
 
     const product = [[
       {
