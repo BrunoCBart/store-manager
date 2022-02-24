@@ -5,6 +5,7 @@ const sinon = require('sinon');
 const { expect } = require('chai')
 
 describe('Lista todos os produtos ou um produto específico no CONTROLLER', () => {
+  
   const request = {}
   const response = {}
 
@@ -13,8 +14,10 @@ describe('Lista todos os produtos ou um produto específico no CONTROLLER', () =
     response.status = sinon.stub().returns(response)
     response.json = sinon.stub().returns()
   })
+
   describe('Todos os produtos, mas sem produtos no BD', () =>{
 
+   
     beforeEach(() => {
       
       sinon.stub(productsService, 'getAll').resolves([])
@@ -38,49 +41,52 @@ describe('Lista todos os produtos ou um produto específico no CONTROLLER', () =
 
   describe('Todos os produtos, mas com produtos no BD', () => {
     const products = [
+        {
+        id: 1,
+        name: 'Bolo vegano',
+        quantity: 10,
+      },
       {
-      name: 'Bolo vegano',
-      quantity: 10,
-    },
-    {
-      name: 'Hamburguer de soja',
-      quantity: 10,
-    }
-  ]
+        id: 2,
+        name: 'Hamburguer de soja',
+        quantity: 10,
+      }
+    ]
 
-  beforeEach(() => {
-    sinon.stub(productsService, 'getAll').resolves(products)
-  })
+    beforeEach(() => {
+      sinon.stub(productsService, 'getAll').resolves(products)
+    })
 
-  afterEach(() => {
-    productsService.getAll.restore()
-  })
-
-  it('response chamada com status 200', async () => {
-    await productsController.getAll(request, response)
-    expect(response.status.calledWith(200)).to.be.eq(true)
-  })
+    afterEach(() => {
+      productsService.getAll.restore()
+    })
+    it('response chamada com status 200', async () => {
+      await productsController.getAll(request, response)
+      expect(response.status.calledWith(200)).to.be.eq(true)
+    })
 
     it('retorna um array com items', async () => {
-      await productsController.getAll()
+      await productsController.getAll(request, response)
       expect(response.json.calledWith(products)).to.be.eq(true)
     })
   })
 
   describe('Produto específico', () => {
 
-    const product = [
-      {
+    const product = {
+      id: 1,
       name: 'Bolo vegano',
       quantity: 10,
-    },
-  ]
+    }
+  
     beforeEach(() => {
+      request.params = { id: 1 }
+      
       sinon.stub(productsService, 'getById').resolves(product)
     })
 
     afterEach(() => {
-      productsModel.getById.restore()
+      productsService.getById.restore()
     })
 
     it('response chamada com status 200', async () => {
@@ -89,8 +95,8 @@ describe('Lista todos os produtos ou um produto específico no CONTROLLER', () =
     })
 
     it('Retorna um produto', async () => {
-      await productsController.getAll()
-      expect(response.json.calledWith(product)).to.be.eq(true)
+     await productsController.getById(request, response)
+      expect(response.json.calledWith(product))
     })
    
   })

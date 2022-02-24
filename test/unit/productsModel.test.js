@@ -62,7 +62,8 @@ describe('Lista todos os produtos ou um produto específico no MODEL', () => {
 
     const product = [[
       {
-      name: 'Bolo vegano',
+      id: 1,
+      name: 'Bolo veano',
       quantity: 10,
     },
   ]]
@@ -76,7 +77,7 @@ describe('Lista todos os produtos ou um produto específico no MODEL', () => {
 
     it('Retorna um produto', async () => {
       const result = await productsModel.getById()
-      expect(result).to.have.lengthOf(1)
+      expect(result).to.be.an('object')
     })
    
   })

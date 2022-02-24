@@ -28,10 +28,12 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
   describe('Todos os produtos, mas com produtos no BD', () => {
     const products = [
       {
+      id: 1,
       name: 'Bolo vegano',
       quantity: 10,
     },
     {
+      id: 2,
       name: 'Hamburguer de soja',
       quantity: 10,
     }
@@ -58,12 +60,10 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
 
   describe('Produto específico', () => {
 
-    const product = [
-      {
-      name: 'Bolo vegano',
+    const product = {
+      name: 'Bolo',
       quantity: 10,
-    },
-  ]
+    }
     beforeEach(() => {
       sinon.stub(productsModel, 'getById').resolves(product)
     })
@@ -74,7 +74,7 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
 
     it('Retorna um produto', async () => {
       const result = await productsService.getById()
-      expect(result).to.have.lengthOf(1)
+      expect(result).to.be.an('object')
     })
    
   })

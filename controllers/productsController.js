@@ -11,7 +11,8 @@ const getAll = async (req, res) => {
 };
 
 const getById = async (req, res) => {
-  const result = await productsService.getById(req.params.id);
+  const { id } = req.params;
+  const result = await productsService.getById(Number(id));
 
   return res.status(200).json(result);
 };

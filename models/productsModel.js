@@ -12,6 +12,6 @@ const getById = async (id) => {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [id],
   );
-  return result;
+  return result[0];
 };
 module.exports = { getAll, getById };
