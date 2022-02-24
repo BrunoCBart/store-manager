@@ -1,5 +1,5 @@
-const productsService = require('../../services/productsService')
-const productsController = require('../../controllers/productsController')
+const productsService = require('../../../services/productsService')
+const productsController = require('../../../controllers/productsController')
 const sinon = require('sinon');
 
 const { expect } = require('chai')
@@ -90,7 +90,7 @@ describe('Lista todos os produtos ou um produto específico no CONTROLLER', () =
     })
 
     it('response chamada com status 200', async () => {
-      await productsController.getAll(request, response)
+      await productsController.getById(request, response)
       expect(response.status.calledWith(200)).to.be.eq(true)
     })
 
@@ -99,5 +99,28 @@ describe('Lista todos os produtos ou um produto específico no CONTROLLER', () =
       expect(response.json.calledWith(product))
     })
    
+  })
+
+  describe('Produto específico mas sem produtos', () => {
+    const product = null
+    beforeEach(() => {
+      sinon.stub(productsService, 'getById').resolves(product)
+    })
+
+    afterEach(() => {
+      productsService.getById.restore()
+    })
+
+   
+    it('Retorna zero produtos', async () => {
+      await productsController.getById(request, response)
+      expect(response.json.calledWith({ "message": "Product not found" })).to.be.eq(true)
+    })
+
+    it('response chamada com status 404', async () => {
+      await productsController.getById(request, response)
+      expect(response.status.calledWith(404)).to.be.eq(true)
+    })
+
   })
 })

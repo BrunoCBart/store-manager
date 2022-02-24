@@ -1,7 +1,7 @@
-const productsService = require('../../services/productsService')
+const productsService = require('../../../services/productsService')
 const sinon = require('sinon');
 
-const productsModel = require('../../models/productsModel')
+const productsModel = require('../../../models/productsModel')
 const { expect } = require('chai')
 
 describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
@@ -15,14 +15,12 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
       productsModel.getAll.restore()
     })
 
-    it('retorna um array', async () => {
+    it('retorna array vazio', async () => {
       const result = await productsService.getAll()
-      expect(result).to.be.an('array')
+      expect(result).to.be.an('array').and.to.be.empty
     })
 
-    it('retorna um array vazio', async () => {
-   
-    })
+
   })
 
   describe('Todos os produtos, mas com produtos no BD', () => {
@@ -61,7 +59,8 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
   describe('Produto específico', () => {
 
     const product = {
-      name: 'Bolo',
+      id: 1,
+      name: 'Bolo Vegano',
       quantity: 10,
     }
     beforeEach(() => {
@@ -74,8 +73,23 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
 
     it('Retorna um produto', async () => {
       const result = await productsService.getById()
-      expect(result).to.be.an('object')
+      expect(result).to.include.all.keys('name', 'quantity')
     })
    
+  })
+  describe('Produto específico mas sem produtos', () => {
+    const product = undefined
+    beforeEach(() => {
+      sinon.stub(productsModel, 'getById').resolves(product)
+    })
+
+    afterEach(() => {
+      productsModel.getById.restore()
+    })
+
+    it('Retorna zero produtos', async () => {
+      const result = await productsService.getById()
+      expect(result).to.be.eq(null)
+    })
   })
 })

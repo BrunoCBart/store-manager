@@ -1,9 +1,9 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
-const connection = require('../../models/connection')
+const connection = require('../../../models/connection')
 
-const productsModel = require('../../models/productsModel')
+const productsModel = require('../../../models/productsModel')
 
 describe('Lista todos os produtos ou um produto específico no MODEL', () => {
   describe('Todos os produtos, getAll, mas sem produtos no BD', () =>{
@@ -63,7 +63,7 @@ describe('Lista todos os produtos ou um produto específico no MODEL', () => {
     const product = [[
       {
       id: 1,
-      name: 'Bolo veano',
+      name: 'Bolo vegano',
       quantity: 10,
     },
   ]]
@@ -77,8 +77,25 @@ describe('Lista todos os produtos ou um produto específico no MODEL', () => {
 
     it('Retorna um produto', async () => {
       const result = await productsModel.getById()
-      expect(result).to.be.an('object')
+      expect(result).to.include.all.keys('id', 'name', 'quantity')
     })
    
+  })
+
+  describe('Produto específico mas sem produtos', () => {
+    const product = [[
+  ]]
+    beforeEach(() => {
+      sinon.stub(connection, 'execute').resolves(product)
+    })
+
+    afterEach(() => {
+      connection.execute.restore()
+    })
+
+    it('Retorna zero produtos', async () => {
+      const result = await productsModel.getById()
+      expect(result).to.be.eq(undefined)
+    })
   })
 })
