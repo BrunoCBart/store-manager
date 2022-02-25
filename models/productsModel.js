@@ -1,4 +1,5 @@
 const connection = require('./connection');
+require('express-async-errors');
 
 const getAll = async () => {
   const [result] = await connection.execute(
@@ -14,4 +15,12 @@ const getById = async (id) => {
   );
   return result[0];
 };
-module.exports = { getAll, getById };
+
+const create = async (name, quantity) => {
+  const [result] = await connection.execute(
+    'INSERT INTO StoreManager.products (name, quantity) VALUES(?,?)',
+    [name, quantity],
+  );
+  return result;
+};
+module.exports = { getAll, getById, create };

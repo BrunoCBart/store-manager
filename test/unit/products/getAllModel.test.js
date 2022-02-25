@@ -5,7 +5,7 @@ const connection = require('../../../models/connection')
 
 const productsModel = require('../../../models/productsModel')
 
-describe('Lista todos os produtos ou um produto específico no MODEL', () => {
+describe('Lista todos os produtos no MODEL', () => {
   describe('Todos os produtos, getAll, mas sem produtos no BD', () =>{
     const response = [[]]
     beforeEach(() => {
@@ -80,22 +80,5 @@ describe('Lista todos os produtos ou um produto específico no MODEL', () => {
       expect(result).to.include.all.keys('id', 'name', 'quantity')
     })
    
-  })
-
-  describe('Produto específico mas sem produtos', () => {
-    const product = [[
-  ]]
-    beforeEach(() => {
-      sinon.stub(connection, 'execute').resolves(product)
-    })
-
-    afterEach(() => {
-      connection.execute.restore()
-    })
-
-    it('Retorna zero produtos', async () => {
-      const result = await productsModel.getById()
-      expect(result).to.be.eq(undefined)
-    })
   })
 })
