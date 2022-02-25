@@ -14,12 +14,12 @@ describe('Atualiza um produto do banco de dados caso exista', () => {
 
     beforeEach(() => {
       sinon.stub(productsModel, 'update').resolves([])
-      sinon.stub(productsModel, 'getAll').resolves([])
+      sinon.stub(productsModel, 'getById').resolves(null)
     })
     
     afterEach(() => {
       productsModel.update.restore()
-      productsModel.getAll.restore()
+      productsModel.getById.restore()
     })
 
     it('produto não pode ser alterado', async () => {
