@@ -21,8 +21,10 @@ const validateName = (name) => {
 };
 
 const validateQuantity = (quantity) => {
-  if (!quantity) return { error: { message: '"quantity" is required' }, status: 400 };
-  if (typeof quantity !== 'number' || quantity <= 1) {
+  if (typeof quantity !== 'number') {
+    return { error: { message: '"quantity" is required' }, status: 400 };
+  } 
+  if (quantity < 1) {
     return { error:
        { message: '"quantity" must be greater than or equal to 1' },
         status: 422, 
@@ -39,14 +41,14 @@ const validateCreateBody = (name, quantity) => {
   return {};
 };
 
-const productExists = async (productName) => {
-  const products = await getAll();
-  const doesProductExists = products.find(({ name }) => name === productName);
-  return !!doesProductExists;
+const productNameExists = async (productName) => {
+  const products = await productsModel.getByName(productName);
+  if (!products) return false;
+  return true;
 };
 
 const validateCreate = async (name, quantity) => {
-  const doesProductExists = await productExists(name);
+  const doesProductExists = await productNameExists(name);
   if (doesProductExists) return { error: { message: 'Product already exists' }, status: 409 };
   const bodyValidations = await validateCreateBody(name, quantity);
   if (bodyValidations.error) return bodyValidations;
@@ -60,18 +62,23 @@ const create = async (name, quantity) => {
   return result;
 };
 
-const validateUpdate = async (name, quantity) => {
-  const doesProductExists = await productExists(name);
+const productIdExists = async (id) => {
+  const product = await productsModel.getById(id);
+  if (!product) return false;
+  return true;
+};
+const validateUpdate = async (id, name, quantity) => {
+  const doesProductExists = await productIdExists(id);
   if (!doesProductExists) return { error: { message: 'Product not found' }, status: 404 };
   const bodyValidations = await validateCreateBody(name, quantity);
   if (bodyValidations.error) return bodyValidations;
   return {};
 };
 
-const update = async (name, quantity) => {
-  const validation = await validateUpdate(name, quantity);
+const update = async (id, name, quantity) => {
+  const validation = await validateUpdate(id, name, quantity);
   if (validation.error) return validation;
-  const result = await productsModel.update(name, quantity);
+  const result = await productsModel.update(id, name, quantity);
   return result;
 };
 

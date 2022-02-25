@@ -5,13 +5,14 @@ const sinon = require('sinon');
 
 const connection = require('../../../models/connection')
 
-
-
 describe('Atualiza um produto do banco de dados caso exista', () => {
   describe('produto não existe', () => {
-    const productNotFound = [[]]
+
+    const rows = [{
+      affectedRows: 0
+    }]
     beforeEach(() => {
-      sinon.stub(connection, 'execute').resolves(productNotFound)
+      sinon.stub(connection, 'execute').resolves(rows)
     })
 
     afterEach(() => {
@@ -20,15 +21,15 @@ describe('Atualiza um produto do banco de dados caso exista', () => {
 
     it('produto não atualizado', async () => {
       const result = await productsModel.update()
-      expect(result).to.be.eq(undefined)
+      expect(result).to.have.property('affectedRows', 0)
     })
   })
   describe('produto existe', () => {
-    const updatedProduct = [[
-      { id: 1, name: "produto", quantity: 15 }
-    ]]
+    const rows = [{
+      affectedRows: 1
+    }]
     beforeEach(() => {
-      sinon.stub(connection, 'execute').resolves(updatedProduct)
+      sinon.stub(connection, 'execute').resolves(rows)
     })
 
     afterEach(() => {
@@ -37,7 +38,7 @@ describe('Atualiza um produto do banco de dados caso exista', () => {
 
     it('Produto atualizado com sucesso', async () => {
       const result = await productsModel.update()
-      expect(result).to.include.all.keys('id', 'name', 'quantity')
+      expect(result).to.have.property('affectedRows', 1)
     })
 
 

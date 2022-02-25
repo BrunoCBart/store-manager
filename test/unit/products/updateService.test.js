@@ -33,10 +33,11 @@ describe('Atualiza um produto do banco de dados caso exista', () => {
     
     const name = "produto"
     const quantity = 1
+    const id = 1
 
     beforeEach(() => {
       sinon.stub(productsModel, 'update').resolves(updatedProduct)
-      sinon.stub(productsModel, 'getAll').resolves([updatedProduct])
+      sinon.stub(productsModel, 'getById').resolves(true)
     })
 
     afterEach(() => {
@@ -44,7 +45,7 @@ describe('Atualiza um produto do banco de dados caso exista', () => {
     })
 
     it('Produto atualizado com sucesso', async () => {
-      const result = await productsService.update(name, quantity)
+      const result = await productsService.update(id, name, quantity)
       expect(result).to.deep.eq(updatedProduct)
     })
 

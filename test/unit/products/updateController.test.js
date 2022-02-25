@@ -1,41 +1,61 @@
 const {expect} = require('chai')
 
-const productsService = require('../../../models/productsModel')
-const productsController = require('../../../models/productsController')
+const productsService = require('../../../services/productsService')
+const productsController = require('../../../controllers/productsController')
 const sinon = require('sinon');
 
 
 describe('Atualiza um produto do banco de dados caso exista', () => {
+
+     
+  const request = {}
+  const response = {}
+
+  beforeEach(() => {
+    request.body = {}
+    request.params = {id: 1}
+    response.status = sinon.stub().returns(response)
+    response.json = sinon.stub().returns()
+  })
+
   describe('produto não existe', () => {
-    const productNotFound = [[]]
+    const productNotFound = { error: { message: 'Product not found' }, status: 404 };
     beforeEach(() => {
-      sinon.stub(connection, 'execute').resolves(productNotFound)
+      sinon.stub(productsService, 'update').resolves(productNotFound)
     })
 
     afterEach(() => {
-      connection.execute.restore()
+      productsService.update.restore()
     })
 
-    it('produto não atualizado', async () => {
-      const result = await productsModel.update()
-      expect(result).to.be.eq(undefined)
+    it('retorna status 404', async () => {
+      await productsController.update(request, response)
+      expect(response.status.calledWith(404)).to.eq(true)
+    })
+
+    it('retora erro produto não encontrado', async () => {
+      await productsController.update(request, response)
+      expect(response.json.calledWith(productNotFound.error)).to.deep.eq(true)
     })
   })
   describe('produto existe', () => {
-    const updatedProduct = [[
-      { id: 1, name: "produto", quantity: 15 }
-    ]]
+    const updatedProduct = { id: 1, name: "produto", quantity: 15 }
     beforeEach(() => {
-      sinon.stub(connection, 'execute').resolves(updatedProduct)
+      sinon.stub(productsService, 'update').resolves(updatedProduct)
     })
 
     afterEach(() => {
-      connection.execute.restore()
+      productsService.update.restore()
     })
 
-    it('Produto atualizado com sucesso', async () => {
-      const result = await productsModel.update()
-      expect(result).to.include.all.keys('id', 'name', 'quantity')
+    it('retorna status 201 criado com sucesso', async () => {
+      await productsController.update(request, response)
+      expect(response.status.calledWith(200)).to.eq(true)
+    })
+
+    it('json retorna mensagem de sucesso', async () => {
+      await productsController.update(request, response)
+      expect(response.json.calledWith(updatedProduct)).to.eq(true)
     })
 
 

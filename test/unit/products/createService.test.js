@@ -17,18 +17,18 @@ describe('Cria produtos no SERVICE', () => {
     }
     beforeEach(() => {
       sinon.stub(productsModel, 'create').resolves(rows)
-      sinon.stub(productsModel, 'getAll').resolves([])
+      sinon.stub(productsModel, 'getById').resolves(null)
     })
 
     afterEach(() => {
       productsModel.create.restore()
-      productsModel.getAll.restore()
+      productsModel.getById.restore()
     })
 
 
     it('cria um produto válido', async () => {
       const result = await productsService.create(name, quantity)
-      expect(result.affectedRows).to.be.eq(1)
+      expect(result).to.have.property('affectedRows', 1)
     })
   })
 

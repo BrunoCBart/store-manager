@@ -16,6 +16,14 @@ const getById = async (id) => {
   return result[0];
 };
 
+const getByName = async (name) => {
+  const [result] = await connection.execute(
+    'SELECT name, quantity FROM StoreManager.products WHERE name=?;',
+    [name],
+  );
+  return result[0];
+};
+
 const create = async (name, quantity) => {
   const [result] = await connection.execute(
     'INSERT INTO StoreManager.products (name, quantity) VALUES(?,?)',
@@ -24,11 +32,11 @@ const create = async (name, quantity) => {
   return result;
 };
 
-const update = async (name, quantity) => {
+const update = async (id, name, quantity) => {
     const [result] = await connection.execute(
-      'UPDATE StoreManager.products SET name=?, quantity =? WHERE name=?',
-      [name, quantity, name],
+      'UPDATE StoreManager.products SET name=?, quantity =? WHERE id=?',
+      [name, quantity, id],
     );
-    return result[0];
+    return result;
 };
-module.exports = { getAll, getById, create, update };
+module.exports = { getAll, getById, create, update, getByName };
