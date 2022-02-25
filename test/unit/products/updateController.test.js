@@ -5,7 +5,7 @@ const productsController = require('../../../controllers/productsController')
 const sinon = require('sinon');
 
 
-describe('Atualiza um produto do banco de dados caso exista', () => {
+describe('Atualiza um produto do banco de dados caso exista no CONTROLLER', () => {
 
      
   const request = {}

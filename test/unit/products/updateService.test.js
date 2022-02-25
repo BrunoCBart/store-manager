@@ -5,7 +5,7 @@ const sinon = require('sinon');
 
 const productsService = require('../../../services/productsService')
 
-describe('Atualiza um produto do banco de dados caso exista', () => {
+describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
   
   describe('produto não existe', () => {
     const message = {error: { message: "Product not found" }, status: 404}

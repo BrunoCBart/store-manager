@@ -5,7 +5,7 @@ const sinon = require('sinon');
 
 const connection = require('../../../models/connection')
 
-describe('Atualiza um produto do banco de dados caso exista', () => {
+describe('Atualiza um produto do banco de dados caso exista no MODEL', () => {
   describe('produto não existe', () => {
 
     const rows = [{
