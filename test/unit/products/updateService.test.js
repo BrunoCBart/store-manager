@@ -14,7 +14,7 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
 
     before(() => {
       sinon.stub(productsModel, 'update').resolves([])
-      sinon.stub(productsModel, 'getById').resolves(null)
+      sinon.stub(productsModel, 'getById').resolves(false)
     })
     
     after(() => {
@@ -23,7 +23,7 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
     })
 
     it('produto não pode ser alterado', async () => {
-      const result = await productsService.update(name, quantity)
+      const result = await productsService.update(1, name, quantity)
       expect(result).to.deep.eq(message)
     })
   })
