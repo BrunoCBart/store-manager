@@ -36,7 +36,8 @@ const validateProductId = (sales) => {
 const validateQuantity = (sales) => {
   const isProductQuantityValid = sales.every((sale) => Object.keys(sale).includes('quantity'));
   if (!isProductQuantityValid) return { error: { message: '"quantity" is required' }, status: 400 };
-  const isQuantityValid = sales.every(({ quantity }) => typeof quantity === 'number' && quantity > 0);
+  const isQuantityValid = sales.every(({ quantity }) =>
+   typeof quantity === 'number' && quantity > 0);
   if (!isQuantityValid) {
     return { error: { message: '"quantity" must be greater than or equal to 1' }, status: 422 };
   }
