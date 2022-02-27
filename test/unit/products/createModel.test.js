@@ -11,11 +11,10 @@ describe('Cria produtos no SERVICE', () => {
     const name = 'Hamburguer vegano'
     const quantity = 1
 
-    const rows = [{
-      affectedRows: 1
-    }]
+    const result = [{insertId: 1}]
+    
     before(() => {
-     sinon.stub(connection, 'execute').resolves(rows)
+     sinon.stub(connection, 'execute').resolves(result)
     })
 
     after(() => {
@@ -25,7 +24,7 @@ describe('Cria produtos no SERVICE', () => {
 
     it('cria um produto válido', async () => {
       const result = await productsModel.create(name, quantity)
-      expect(result).to.have.property('affectedRows', 1)
+      expect(result).to.be.eq(1)
     })
   })
 

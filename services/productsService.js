@@ -9,16 +9,15 @@ const getById = async (id) => {
   return product;
 };
 
-const productNameExists = async (productName) => {
+const productByName = async (productName) => {
   const products = await productsModel.getByName(productName);
-  if (!products) return false;
-  return true;
+  return products;
 };
 
 const validateCreate = async (name, quantity) => {
   const bodyValidations = productsSchema.validateBody(name, quantity);
   if (bodyValidations.error) return bodyValidations;
-  const doesProductExists = await productNameExists(name);
+  const doesProductExists = await productByName(name);
   if (doesProductExists) return { error: { message: 'Product already exists' }, status: 409 };
   return {};
 };
@@ -26,32 +25,40 @@ const validateCreate = async (name, quantity) => {
 const create = async (name, quantity) => {
   const validation = await validateCreate(name, quantity);
   if (validation.error) return validation;
-  const result = await productsModel.create(name, quantity);
-  return result;
+  const id = await productsModel.create(name, quantity);
+  const result = await productByName(name);
+  return { id, ...result };
 };
 
 const productIdExists = async (id) => {
+  console.log(id, 'a');
   const product = await productsModel.getById(id);
-  if (!product) return false;
-  return true;
+  console.log(product, 'b');
+  if (!product) return { error: { message: 'Product not found' }, status: 404 };
+  return {};
 };
 const validateUpdate = async (id, name, quantity) => {
   const bodyValidations = productsSchema.validateBody(name, quantity);
   if (bodyValidations.error) return bodyValidations;
   // const doesProductNameExists = await productNameExists(name);
   // if (doesProductNameExists) return { error: { message: 'Product already exists' }, status: 409 };
-  const doesProductExists = await productIdExists(id);
-  if (!doesProductExists) return { error: { message: 'Product not found' }, status: 404 };
+  const productExistsValidation = await productIdExists(id);
+  if (productExistsValidation.error) return productExistsValidation;  
   return {};
 };
 
   const update = async (id, name, quantity) => {
     const validation = await validateUpdate(id, name, quantity);
     if (validation.error) return validation;
-    const result = await productsModel.update(id, name, quantity);
-    return result;
+    const insertId = await productsModel.update(id, name, quantity);
+    return { id: insertId, name, quantity };
   };
 
-  const exclude = async (id) => productsModel.exclude(id);
+  const exclude = async (id) => {
+    const productExistsValidation = await productIdExists(id);
+    if (productExistsValidation.error) return productExistsValidation;  
+    await productsModel.exclude(id);
+    return {};
+  };
 
   module.exports = { getAll, getById, create, update, exclude };

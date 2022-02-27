@@ -26,7 +26,7 @@ const sell = (async (req, res, next) => {
   try {
     const result = await salesService.sell(sales);
     if (result.error) return res.status(result.status).json(result.error);
-    return res.status(201).json({ message: 'done success' });
+    return res.status(201).json(result);
   } catch (error) {
     return next(error);
   }

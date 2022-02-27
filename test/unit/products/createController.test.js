@@ -18,11 +18,9 @@ describe('Cria produtos do no CONTROLLER', () => {
 
   describe('Cria um novo produto', () => {
     request.body = {name: 'Hamburguer vegano', quantity: 1}
-    const rows = {
-      affectedRows: 1
-    }
+    const newProduct = {id: 1, name: 'Hamburguer vegano', quantity: 1}
     before(() => {
-     sinon.stub(productsService, 'create').resolves(rows)
+     sinon.stub(productsService, 'create').resolves(newProduct)
     })
 
     after(() => {
@@ -36,7 +34,7 @@ describe('Cria produtos do no CONTROLLER', () => {
 
     it('cria um produto válido', async () => {
       await productsController.create(request, response)
-      expect(response.json.calledWith({ message: 'Product created successfully' })).to.eq(true)
+      expect(response.json.calledWith(newProduct)).to.be.deep.eq(true)
     })
   })
 

@@ -26,19 +26,19 @@ const getByName = async (name) => {
 const create = async (name, quantity) => {
   console.log(name, quantity);
 
-  const [result] = await connection.execute(
+  const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.products (name, quantity) VALUES(?,?)',
     [name, quantity],
   );
-  return result;
+  return insertId;
 };
 
 const update = async (id, name, quantity) => {
-    const [result] = await connection.execute(
+    const [{ insertId }] = await connection.execute(
       'UPDATE StoreManager.products SET name=?, quantity=? WHERE id=?',
       [name, quantity, id],
     );
-    return result;
+    return insertId;
 };
 
 const exclude = async (id) => {
