@@ -8,10 +8,10 @@ const salesModel = require('../../../models/salesModel')
 describe('Lista todos as vendas ou um uma venda específica MODEL', () => {
   describe('Todos as vendas, getAll, mas sem vendas no BD', () =>{
     const response = [[]]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(response)
     })
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
     it('retorna um array', async () => {
@@ -53,11 +53,11 @@ describe('Lista todos as vendas ou um uma venda específica MODEL', () => {
       }
     ]]
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(sales)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 
@@ -87,11 +87,11 @@ describe('Lista todos as vendas ou um uma venda específica MODEL', () => {
         quantity: 2
       }
     ]]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(sale)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

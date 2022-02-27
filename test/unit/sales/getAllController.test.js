@@ -9,7 +9,7 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
   const request = {}
   const response = {}
 
-  beforeEach(() => {
+  before(() => {
     request.body = {}
     response.status = sinon.stub().returns(response)
     response.json = sinon.stub().returns()
@@ -17,12 +17,12 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
 
   describe('Todos as vendas, mas sem vendas no BD', () =>{
 
-    beforeEach(() => {
+    before(() => {
       
       sinon.stub(salesService, 'getAll').resolves([])
     })
 
-    afterEach(() => {
+    after(() => {
       salesService.getAll.restore()
     })
 
@@ -66,11 +66,11 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
       }
     ]
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(salesService, 'getAll').resolves(sales)
     })
 
-    afterEach(() => {
+    after(() => {
       salesService.getAll.restore()
     })
     it('response chamada com status 200', async () => {
@@ -101,13 +101,13 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
       }
     ]
   
-    beforeEach(() => {
+    before(() => {
       request.params = { id: 1 }
       
       sinon.stub(salesService, 'getById').resolves(sale)
     })
 
-    afterEach(() => {
+    after(() => {
       salesService.getById.restore()
     })
 

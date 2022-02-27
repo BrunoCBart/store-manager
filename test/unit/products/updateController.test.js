@@ -11,7 +11,7 @@ describe('Atualiza um produto do banco de dados caso exista no CONTROLLER', () =
   const request = {}
   const response = {}
 
-  beforeEach(() => {
+  before(() => {
     request.body = {}
     request.params = {id: 1}
     response.status = sinon.stub().returns(response)
@@ -20,11 +20,11 @@ describe('Atualiza um produto do banco de dados caso exista no CONTROLLER', () =
 
   describe('produto não existe', () => {
     const productNotFound = { error: { message: 'Product not found' }, status: 404 };
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsService, 'update').resolves(productNotFound)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.update.restore()
     })
 
@@ -40,11 +40,11 @@ describe('Atualiza um produto do banco de dados caso exista no CONTROLLER', () =
   })
   describe('produto existe', () => {
     const updatedProduct = { id: 1, name: "produto", quantity: 15 }
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsService, 'update').resolves(updatedProduct)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.update.restore()
     })
 

@@ -9,7 +9,7 @@ describe('Lista produto específico no CONTROLLER', () => {
   const request = {}
   const response = {}
 
-  beforeEach(() => {
+  before(() => {
     request.params = { id: 1 }
     request.body = {}
     response.status = sinon.stub().returns(response)
@@ -18,11 +18,11 @@ describe('Lista produto específico no CONTROLLER', () => {
 
   describe('Produto específico mas sem produtos', () => {
     const product = null
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsService, 'getById').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.getById.restore()
     })
 

@@ -9,7 +9,7 @@ describe('Lista todos os produtos no CONTROLLER', () => {
   const request = {}
   const response = {}
 
-  beforeEach(() => {
+  before(() => {
     request.body = {}
     response.status = sinon.stub().returns(response)
     response.json = sinon.stub().returns()
@@ -18,12 +18,12 @@ describe('Lista todos os produtos no CONTROLLER', () => {
   describe('Todos os produtos, mas sem produtos no BD', () =>{
 
    
-    beforeEach(() => {
+    before(() => {
       
       sinon.stub(productsService, 'getAll').resolves([])
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.getAll.restore()
     })
 
@@ -53,11 +53,11 @@ describe('Lista todos os produtos no CONTROLLER', () => {
       }
     ]
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsService, 'getAll').resolves(products)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.getAll.restore()
     })
     it('response chamada com status 200', async () => {
@@ -79,13 +79,13 @@ describe('Lista todos os produtos no CONTROLLER', () => {
       quantity: 10,
     }
   
-    beforeEach(() => {
+    before(() => {
       request.params = { id: 1 }
       
       sinon.stub(productsService, 'getById').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.getById.restore()
     })
 

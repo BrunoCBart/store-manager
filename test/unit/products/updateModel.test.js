@@ -11,11 +11,11 @@ describe('Atualiza um produto do banco de dados caso exista no MODEL', () => {
     const rows = [{
       affectedRows: 0
     }]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(rows)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 
@@ -28,11 +28,11 @@ describe('Atualiza um produto do banco de dados caso exista no MODEL', () => {
     const rows = [{
       affectedRows: 1
     }]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(rows)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

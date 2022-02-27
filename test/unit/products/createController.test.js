@@ -10,7 +10,7 @@ describe('Cria produtos do no CONTROLLER', () => {
   const request = {}
   const response = {}
 
-  beforeEach(() => {
+  before(() => {
     request.body = {}
     response.status = sinon.stub().returns(response)
     response.json = sinon.stub().returns()
@@ -21,11 +21,11 @@ describe('Cria produtos do no CONTROLLER', () => {
     const rows = {
       affectedRows: 1
     }
-    beforeEach(() => {
+    before(() => {
      sinon.stub(productsService, 'create').resolves(rows)
     })
 
-    afterEach(() => {
+    after(() => {
       productsService.create.restore()
     })
 

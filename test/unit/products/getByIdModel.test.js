@@ -8,13 +8,12 @@ const productsModel = require('../../../models/productsModel')
 describe('Lista um produto específico no MODEL', () => {
  
   describe('Produto específico mas sem produtos', () => {
-    const product = [[
-  ]]
-    beforeEach(() => {
+    const product = [[]]
+    before(() => {
       sinon.stub(connection, 'execute').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

@@ -9,20 +9,20 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
   const request = {}
   const response = {}
 
-  beforeEach(() => {
-    request.params = 1
+  before(() => {
+    request.params = {id: 1}
     request.body = {}
     response.status = sinon.stub().returns(response)
     response.json = sinon.stub().returns()
   })
 
   describe('Venda específica mas sem vendas', () => {
-    const sale = null
-    beforeEach(() => {
+    const sale = { error: { message: 'Sale not found' }, status: 404 }
+    before(() => {
       sinon.stub(salesService, 'getById').resolves(sale)
     })
 
-    afterEach(() => {
+    after(() => {
       salesService.getById.restore()
     })
 

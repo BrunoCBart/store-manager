@@ -8,11 +8,11 @@ const salesModel = require('../../../models/salesModel')
 describe('Lista todos as vendas ou um uma venda específica MODEL', () => {
 
   describe('Venda específica mas sem vendas', () => {
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves([[]])
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

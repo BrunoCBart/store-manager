@@ -7,11 +7,11 @@ const { expect } = require('chai')
 describe('Lista todos as vendas ou uma venda específico no SERVICE', () => {
   describe('Todos as vendas, mas sem vendas no BD', () =>{
     const response = []
-    beforeEach(() => {
+    before(() => {
       sinon.stub(salesModel, 'getAll').resolves(response)
     })
 
-    afterEach(() => {
+    after(() => {
       salesModel.getAll.restore()
     })
 
@@ -50,11 +50,11 @@ describe('Lista todos as vendas ou uma venda específico no SERVICE', () => {
       }
     ]
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(salesModel, 'getAll').resolves(sales)
     })
 
-    afterEach(() => {
+    after(() => {
       salesModel.getAll.restore()
     })
 
@@ -69,7 +69,7 @@ describe('Lista todos as vendas ou uma venda específico no SERVICE', () => {
     })
   })
 
-  describe('Venda específico', () => {
+  describe('Venda específica', () => {
 
     const sale = [
       {
@@ -85,16 +85,16 @@ describe('Lista todos as vendas ou uma venda específico no SERVICE', () => {
         quantity: 2
       }
     ]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(salesModel, 'getById').resolves(sale)
     })
 
-    afterEach(() => {
+    after(() => {
       salesModel.getById.restore()
     })
 
     it('Retorna um produto', async () => {
-      const result = await salesService.getById()
+      const result = await salesService.getById(1)
       expect(result[0]).to.include.all.keys('date', 'productId', 'quantity')
       expect(result[1]).to.include.all.keys('date', 'productId', 'quantity')
     })

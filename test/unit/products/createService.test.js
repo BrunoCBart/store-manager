@@ -15,12 +15,12 @@ describe('Cria produtos no SERVICE', () => {
     const rows = {
       affectedRows: 1
     }
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsModel, 'create').resolves(rows)
       sinon.stub(productsModel, 'getByName').resolves(null)
     })
 
-    afterEach(() => {
+    after(() => {
       productsModel.create.restore()
       productsModel.getByName.restore()
     })

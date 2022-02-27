@@ -14,11 +14,11 @@ describe('Cria produtos no SERVICE', () => {
     const rows = [{
       affectedRows: 1
     }]
-    beforeEach(() => {
+    before(() => {
      sinon.stub(connection, 'execute').resolves(rows)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

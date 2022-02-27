@@ -12,12 +12,12 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
     const name = "Nao existo"
     const quantity = 1
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsModel, 'update').resolves([])
       sinon.stub(productsModel, 'getById').resolves(null)
     })
     
-    afterEach(() => {
+    after(() => {
       productsModel.update.restore()
       productsModel.getById.restore()
     })
@@ -35,12 +35,12 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
     const quantity = 1
     const id = 1
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsModel, 'update').resolves(updatedProduct)
       sinon.stub(productsModel, 'getById').resolves(true)
     })
 
-    afterEach(() => {
+    after(() => {
       productsModel.update.restore()
     })
 

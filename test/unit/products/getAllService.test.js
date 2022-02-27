@@ -7,11 +7,11 @@ const { expect } = require('chai')
 describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
   describe('Todos os produtos, mas sem produtos no BD', () =>{
     const response = []
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsModel, 'getAll').resolves(response)
     })
 
-    afterEach(() => {
+    after(() => {
       productsModel.getAll.restore()
     })
 

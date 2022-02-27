@@ -8,11 +8,11 @@ describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
   
   describe('Produto específico mas sem produtos', () => {
     const product = undefined
-    beforeEach(() => {
+    before(() => {
       sinon.stub(productsModel, 'getById').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       productsModel.getById.restore()
     })
 

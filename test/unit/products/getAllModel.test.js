@@ -8,11 +8,11 @@ const productsModel = require('../../../models/productsModel')
 describe('Lista todos os produtos no MODEL', () => {
   describe('Todos os produtos, getAll, mas sem produtos no BD', () =>{
     const response = [[]]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(response)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 
@@ -39,11 +39,11 @@ describe('Lista todos os produtos no MODEL', () => {
     }
   ]]
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(products)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 
@@ -67,11 +67,11 @@ describe('Lista todos os produtos no MODEL', () => {
       quantity: 10,
     },
   ]]
-    beforeEach(() => {
+    before(() => {
       sinon.stub(connection, 'execute').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       connection.execute.restore()
     })
 

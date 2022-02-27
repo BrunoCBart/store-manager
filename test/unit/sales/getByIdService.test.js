@@ -4,20 +4,20 @@ const sinon = require('sinon');
 const salesModel = require('../../../models/salesModel')
 const { expect } = require('chai')
 
-describe('Lista todos as vendas ou uma venda específico no SERVICE', () => {
+describe('Venda específica no SERVICE', () => {
   describe('Venda específica mas sem vendas', () => {
     const product = []
-    beforeEach(() => {
+    before(() => {
       sinon.stub(salesModel, 'getById').resolves(product)
     })
 
-    afterEach(() => {
+    after(() => {
       salesModel.getById.restore()
     })
 
     it('Caso não tenha vendas retorna null', async () => {
-      const result = await salesService.getById()
-      expect(result).to.be.eq(null)
+      const result = await salesService.getById(1)
+      expect(result).to.deep.have.property('error', { "message": "Sale not found" })
     })
   })
 })
