@@ -31,6 +31,7 @@ const sell = (async (req, res, next) => {
     return next(error);
   }
 });
+// teste
 const update = (async (req, res, next) => {
   const sales = req.body;
   const { id } = req.params;
