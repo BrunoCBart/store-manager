@@ -57,13 +57,19 @@ const getSaleId = async () => {
   return resultId;
 };
 
+const sellProducts = async (saleId, sales) => {
+  sales.forEach(async ({ productId, quantity }) => {
+    await salesModel.sell(saleId, productId, quantity);
+    await salesModel.updateSoldProduct(productId, quantity);
+   });
+};
+
 const sell = async (sales) => {
   const validation = validateSales(sales);
   if (validation.error) return validation;
   const saleId = await getSaleId();
-  sales.forEach(async ({ productId, quantity }) => {
-   await salesModel.sell(saleId, productId, quantity);
-  });
+  await sellProducts(saleId, sales);
+ 
   return { id: saleId, itemsSold: sales };
 };
 
@@ -76,10 +82,18 @@ const update = async (saleId, sales) => {
   return { saleId, itemUpdated: sales };
 };
 
+const excludeSoldProducts = async (id) => {
+  const sales = await getById(id);
+  await salesModel.exclude(id);
+  sales.forEach(async ({ productId, quantity }) => {
+    await salesModel.updateExcludedProducts(productId, quantity);
+  });
+};
+
 const exclude = async (id) => {
   const validation = await getById(id);
   if (validation.error) return validation;
-  await salesModel.exclude(id);
+  await excludeSoldProducts(id);
   return {};
 };
 

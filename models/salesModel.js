@@ -44,6 +44,21 @@ const update = async (saleId, productId, quantity) => {
   );
   return insertId;
 };
+const updateSoldProduct = async (productId, quantity) => {
+  const [result] = await connection.execute(
+    'UPDATE StoreManager.products SET quantity = quantity - ? WHERE id=?',
+    [quantity, productId],
+  );
+  return result;
+};
+
+const updateExcludedProducts = async (productId, quantity) => {
+  const [result] = await connection.execute(
+    'UPDATE StoreManager.products SET quantity = quantity + ? WHERE id=?',
+    [quantity, productId],
+    );
+  return result;
+};
 
 const exclude = async (id) => {
    await connection.execute(
@@ -51,4 +66,13 @@ const exclude = async (id) => {
     [id],
   );
 };
-module.exports = { getAll, getById, sell, getSaleId, update, exclude };
+module.exports = { 
+  getAll,
+  getById, 
+  sell,
+  getSaleId,
+  update,
+  exclude,
+  updateSoldProduct,
+  updateExcludedProducts,
+};
