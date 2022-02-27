@@ -28,12 +28,12 @@ const getSaleId = async () => {
 };
 
 const sell = async (saleId, productId, quantity) => {
-  const [result] = await connection.execute(
+  const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES(?,?,?)',
     [saleId, productId, quantity],
 
   );
-  return result;
+  return insertId;
 };
 
 const update = async (saleId, productId, quantity) => {

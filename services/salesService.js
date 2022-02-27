@@ -62,18 +62,10 @@ const sell = async (sales) => {
   if (validation.error) return validation;
   const saleId = await getSaleId();
   sales.forEach(async ({ productId, quantity }) => {
-    await salesModel.sell(saleId, productId, quantity);
+   await salesModel.sell(saleId, productId, quantity);
   });
-  return {};
+  return { id: saleId, itemsSold: sales };
 };
-
-// const validateUpdate = (sales) => {
-//   const productIdValidation = validateProductId(sales);
-//   if (productIdValidation.error) return productIdValidation;
-//   const quantityValidation = validateQuantity(sales);
-//   if (quantityValidation.error) return quantityValidation;
-//   return {};
-// };
 
 const update = async (saleId, sales) => {
   const validation = validateSales(sales);
