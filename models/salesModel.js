@@ -44,4 +44,11 @@ const update = async (saleId, productId, quantity) => {
   );
   return insertId;
 };
-module.exports = { getAll, getById, sell, getSaleId, update };
+
+const exclude = async (id) => {
+   await connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id=?',
+    [id],
+  );
+};
+module.exports = { getAll, getById, sell, getSaleId, update, exclude };

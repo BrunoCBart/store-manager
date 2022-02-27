@@ -76,4 +76,11 @@ const update = async (saleId, sales) => {
   return { saleId, itemUpdated: sales };
 };
 
-module.exports = { getAll, getById, sell, update };
+const exclude = async (id) => {
+  const validation = await getById(id);
+  if (validation.error) return validation;
+  await salesModel.exclude(id);
+  return {};
+};
+
+module.exports = { getAll, getById, sell, update, exclude };

@@ -44,4 +44,15 @@ const update = (async (req, res, next) => {
   }
 });
 
-module.exports = { getAll, getById, sell, update };
+const exclude = (async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await salesService.exclude(Number(id));
+    if (result.error) return res.status(result.status).json(result.error);
+    return res.status(204).json(result);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+module.exports = { getAll, getById, sell, update, exclude };
