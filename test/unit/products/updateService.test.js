@@ -30,13 +30,15 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
  
   describe('produto existe', () => {
     const updatedProduct = { id: 1, name: "produto", quantity: 15 }
+
+    const insertId = 1
     
     const name = "produto"
-    const quantity = 1
+    const quantity = 15
     const id = 1
 
     before(() => {
-      sinon.stub(productsModel, 'update').resolves(updatedProduct)
+      sinon.stub(productsModel, 'update').resolves(insertId)
       sinon.stub(productsModel, 'getById').resolves(true)
     })
 

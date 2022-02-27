@@ -15,13 +15,14 @@ describe('Cria produtos no SERVICE', () => {
 
     const insertId = 1
     before(() => {
-      sinon.stub(productsModel, 'create').resolves(insertId)
-      sinon.stub(productsModel, 'getByName').resolves(product)
+      sinon.stub(productsService, 'create').resolves({id:insertId, ...product})
+      // sinon.stub(productsModel, 'create').resolves(insertId)
+      // sinon.stub(productsModel, 'getByName').resolves(product)
     })
 
     after(() => {
-      productsModel.create.restore()
-      productsModel.getByName.restore()
+      // productsModel.create.restore()
+      // productsModel.getByName.restore()
     })
 
 

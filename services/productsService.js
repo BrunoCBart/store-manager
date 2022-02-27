@@ -31,9 +31,7 @@ const create = async (name, quantity) => {
 };
 
 const productIdExists = async (id) => {
-  console.log(id, 'a');
   const product = await productsModel.getById(id);
-  console.log(product, 'b');
   if (!product) return { error: { message: 'Product not found' }, status: 404 };
   return {};
 };
@@ -61,4 +59,4 @@ const validateUpdate = async (id, name, quantity) => {
     return {};
   };
 
-  module.exports = { getAll, getById, create, update, exclude };
+  module.exports = { getAll, getById, create, update, exclude, validateCreate };
