@@ -37,11 +37,11 @@ const sell = async (saleId, productId, quantity) => {
 };
 
 const update = async (saleId, productId, quantity) => {
-  const [result] = await connection.execute(
+  const [{ insertId }] = await connection.execute(
     `UPDATE StoreManager.sales_products SET product_id=?, quantity=?
      WHERE sale_id=? AND product_id=?`,
     [productId, quantity, saleId, productId],
   );
-  return result;
+  return insertId;
 };
 module.exports = { getAll, getById, sell, getSaleId, update };

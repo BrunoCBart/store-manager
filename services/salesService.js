@@ -73,7 +73,7 @@ const update = async (saleId, sales) => {
   sales.forEach(async ({ productId, quantity }) => {
     await salesModel.update(saleId, productId, quantity);
   });
-  return {};
+  return { saleId, itemUpdated: sales };
 };
 
 module.exports = { getAll, getById, sell, update };
