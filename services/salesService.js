@@ -1,5 +1,6 @@
 const camelcaseKeys = require('camelcase-keys');
 const salesModel = require('../models/salesModel');
+const productsService = require('./productsService');
 
 const removeSaleId = ({ date, productId, quantity }) => ({
     date,
@@ -57,19 +58,42 @@ const getSaleId = async () => {
   return resultId;
 };
 
+const isSaleInStock = async (productId, quantity) => {
+  const product = await productsService.getById(productId);
+  if (product.quantity < quantity) {
+    return { error: { message: 'Such amount is not permitted to sell' }, status: 422 };
+  }
+  return {};
+};
+
+const doesItHasStock = async (sales) => {
+  const validation = sales.reduce(async (acc, { productId, quantity }) => {
+    const saleStockValidation = await isSaleInStock(productId, quantity);
+    if (saleStockValidation.error) {
+      acc.error = saleStockValidation.error;
+      acc.status = saleStockValidation.status;
+    }
+    return acc;
+  }, {});
+  return validation;
+};
+
 const sellProducts = async (saleId, sales) => {
+  const validation = await doesItHasStock(sales);
+  if (validation.error) return validation;
   sales.forEach(async ({ productId, quantity }) => {
     await salesModel.sell(saleId, productId, quantity);
     await salesModel.updateSoldProduct(productId, quantity);
    });
+   return {};
 };
 
 const sell = async (sales) => {
   const validation = validateSales(sales);
   if (validation.error) return validation;
   const saleId = await getSaleId();
-  await sellProducts(saleId, sales);
- 
+  const sellProductsValidation = await sellProducts(saleId, sales);
+  if (sellProductsValidation.error) return sellProductsValidation;
   return { id: saleId, itemsSold: sales };
 };
 
