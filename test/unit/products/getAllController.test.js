@@ -71,34 +71,4 @@ describe('Lista todos os produtos no CONTROLLER', () => {
     })
   })
 
-  describe('Produto específico', () => {
-
-    const product = {
-      id: 1,
-      name: 'Bolo vegano',
-      quantity: 10,
-    }
-  
-    before(() => {
-      request.params = { id: 1 }
-      
-      sinon.stub(productsService, 'getById').resolves(product)
-    })
-
-    after(() => {
-      productsService.getById.restore()
-    })
-
-    it('response chamada com status 200', async () => {
-      await productsController.getById(request, response)
-      expect(response.status.calledWith(200)).to.be.eq(true)
-    })
-
-    it('Retorna um produto', async () => {
-     await productsController.getById(request, response)
-      expect(response.json.calledWith(product))
-    })
-   
-  })
-
 })

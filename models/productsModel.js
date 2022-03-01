@@ -17,7 +17,7 @@ const getById = async (id) => {
 
 const getByName = async (name) => {
   const [result] = await connection.execute(
-    'SELECT name, quantity FROM StoreManager.products WHERE name=?;',
+    'SELECT id, name, quantity FROM StoreManager.products WHERE name=?;',
     [name],
   );
   return result[0];

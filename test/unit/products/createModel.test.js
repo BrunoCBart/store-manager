@@ -5,8 +5,8 @@ const sinon = require('sinon');
 const productsModel = require('../../../models/productsModel')
 const connection = require('../../../models/connection')
 
-describe('Cria produtos no SERVICE', () => {
-   
+describe('Cria produtos no MODEL', () => {
+
   describe('Cria um novo produto', () => {
     const name = 'Hamburguer vegano'
     const quantity = 1

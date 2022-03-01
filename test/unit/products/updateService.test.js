@@ -15,11 +15,13 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
     before(() => {
       sinon.stub(productsModel, 'update').resolves([])
       sinon.stub(productsModel, 'getById').resolves(false)
+      sinon.stub(productsModel, 'getByName').resolves(undefined)
     })
     
     after(() => {
       productsModel.update.restore()
       productsModel.getById.restore()
+      productsModel.getByName.restore()
     })
 
     it('produto não pode ser alterado', async () => {
@@ -40,6 +42,7 @@ describe('Atualiza um produto do banco de dados caso exista no SERVICE', () => {
     before(() => {
       sinon.stub(productsModel, 'update').resolves(insertId)
       sinon.stub(productsModel, 'getById').resolves(true)
+      sinon.stub(productsModel, 'getByName').resolves({id:1, name:'Martelo de Thor', quantity: 10})
     })
 
     after(() => {

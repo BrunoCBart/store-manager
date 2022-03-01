@@ -13,10 +13,10 @@ describe('Lista produto específico no CONTROLLER', () => {
     request.params = { id: 1 }
     request.body = {}
     response.status = sinon.stub().returns(response)
-    response.json = sinon.stub().returns()
+    response.json = sinon.stub().returns()  
   })
 
-  describe('Produto específico mas sem produtos', () => {
+  describe('Tenta listar um produto que não existe', () => {
     const product = null
     before(() => {
       sinon.stub(productsService, 'getById').resolves(product)
@@ -38,4 +38,26 @@ describe('Lista produto específico no CONTROLLER', () => {
     })
 
   })
+
+  describe('Lista um produo existente', () => {
+    const product = {id: 1, name:'Hamburguer vegano', quantity: 1}
+    before(() => {
+      sinon.stub(productsService, 'getById').resolves(product)
+    })
+
+    after(() => {
+      productsService.getById.restore()
+    })
+
+    it('Retorna um produto', async () => {
+      await productsController.getById(request, response)
+      expect(response.json.calledWith(product)).to.be.eq(true)
+    })
+
+    it('response chamada com status 200', async () => {
+      await productsController.getById(request, response)
+      expect(response.status.calledWith(200)).to.be.eq(true)
+    })
+  })
+
 })

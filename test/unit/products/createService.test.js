@@ -10,19 +10,19 @@ describe('Cria produtos no SERVICE', () => {
   describe('Cria um novo produto', () => {
     const name = 'Hamburguer vegano'
     const quantity = 1
-    
-    const product = {name, quantity}
-
     const insertId = 1
+
+    const product = {id: insertId, name, quantity}
     before(() => {
-      sinon.stub(productsService, 'create').resolves({id:insertId, ...product})
-      // sinon.stub(productsModel, 'create').resolves(insertId)
-      // sinon.stub(productsModel, 'getByName').resolves(product)
+      sinon.stub(productsModel, 'create').resolves(insertId)
+      sinon.stub(productsModel, 'getById').resolves(product)
+      sinon.stub(productsModel, 'getByName').resolves(null)
     })
 
     after(() => {
-      // productsModel.create.restore()
-      // productsModel.getByName.restore()
+      productsModel.create.restore()
+      productsModel.getById.restore()
+      productsModel.getByName.restore()
     })
 
 

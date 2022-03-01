@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const productsModel = require('../../../models/productsModel')
 const { expect } = require('chai')
 
-describe('Lista todos os produtos ou um produto específico no SERVICE', () => {
+describe('Lista todos os produtos no SERVICE', () => {
   describe('Todos os produtos, mas sem produtos no BD', () =>{
     const response = []
     before(() => {

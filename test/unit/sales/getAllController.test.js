@@ -4,7 +4,7 @@ const sinon = require('sinon');
 
 const { expect } = require('chai')
 
-describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
+describe('Lista todos as vendas no CONTROLLER', () => {
   
   const request = {}
   const response = {}
@@ -38,7 +38,7 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
     })
   })
 
-  describe('Todos as vendas, mas cas vendas no BD', () => {
+  describe('Todos as vendas, mas com vendas no BD', () => {
     const sales = [
       {
         saleId: 1,
@@ -82,45 +82,6 @@ describe('Lista todos as vendas ou uma venda específica no CONTROLLER', () => {
       await salesController.getAll(request, response)
       expect(response.json.calledWith(sales)).to.be.eq(true)
     })
-  })
-
-  describe('Venda específica', () => {
-
-    const sale = [
-      {
-        saleId: 1,
-        date: "2021-09-09T04:54:29.000Z",
-        productId: 1,
-        quantity: 2
-      },
-      {
-        saleId: 1,
-        date: "2021-09-09T04:54:54.000Z",
-        productId: 2,
-        quantity: 2
-      }
-    ]
-  
-    before(() => {
-      request.params = { id: 1 }
-      
-      sinon.stub(salesService, 'getById').resolves(sale)
-    })
-
-    after(() => {
-      salesService.getById.restore()
-    })
-
-    it('response chamada com status 200', async () => {
-      await salesController.getById(request, response)
-      expect(response.status.calledWith(200)).to.be.eq(true)
-    })
-
-    it('Retorna um produto', async () => {
-     await salesController.getById(request, response)
-      expect(response.json.calledWith(sale))
-    })
-   
   })
 
 })

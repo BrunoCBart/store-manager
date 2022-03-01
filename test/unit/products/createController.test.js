@@ -16,6 +16,28 @@ describe('Cria produtos do no CONTROLLER', () => {
     response.json = sinon.stub().returns()
   })
 
+
+  describe('Tenta criar um produto inválido', () => {
+    request.body = {name: 'Martelo de Thor', quantity: 5}
+    const error  =  { error: { message: 'Product already exists' }, status: 409 }
+    before(() => {
+      sinon.stub(productsService, 'create').resolves(error)
+     })
+ 
+     after(() => {
+       productsService.create.restore()
+     })
+     it('resposta 409 produto já existe', async () => {
+      await productsController.create(request, response)
+      expect(response.status.calledWith(409)).to.eq(true)
+    })
+
+    it('retorna mensagem de erro', async () => {
+      await productsController.create(request, response)
+      expect(response.json.calledWith({ message: 'Product already exists' })).to.deep.eq(true)
+    })
+  })
+
   describe('Cria um novo produto', () => {
     request.body = {name: 'Hamburguer vegano', quantity: 1}
     const newProduct = {id: 1, name: 'Hamburguer vegano', quantity: 1}

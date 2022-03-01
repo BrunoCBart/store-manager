@@ -57,28 +57,4 @@ describe('Lista todos os produtos no MODEL', () => {
       expect(result).to.have.lengthOf(2)
     })
   })
-
-  describe('Produto específico getById', () => {
-
-    const product = [[
-      {
-      id: 1,
-      name: 'Bolo vegano',
-      quantity: 10,
-    },
-  ]]
-    before(() => {
-      sinon.stub(connection, 'execute').resolves(product)
-    })
-
-    after(() => {
-      connection.execute.restore()
-    })
-
-    it('Retorna um produto', async () => {
-      const result = await productsModel.getById()
-      expect(result).to.include.all.keys('id', 'name', 'quantity')
-    })
-   
-  })
 })
