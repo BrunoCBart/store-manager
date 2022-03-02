@@ -4,8 +4,8 @@ Store Manager é uma api criada com NodeJs e testada com mocha e chai.
 Na rota /products ou products/:id, você pode procurar todos os produtos cadastrados ou um específico.
 <img src="https://github.com/BrunoCBart/store-manager/blob/master/images/products.jpg">
  
- Na rota /sales ou sales/:id, todas as vendas efetuadas ou uma específica.
- <img src="https://github.com/BrunoCBart/store-manager/blob/master/images/sales.jpg">
+Na rota /sales ou sales/:id, todas as vendas efetuadas ou uma específica.
+<img src="https://github.com/BrunoCBart/store-manager/blob/master/images/sales.jpg">
 
 Na rota /products Você pode criar um novo produto usando o método POST
 Na rota /sales Você pode efetuar uma venda usando o método POST
