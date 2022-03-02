@@ -1,5 +1,7 @@
 # store-manager
 Store Manager é uma api criada com NodeJs e testada com mocha e chai.
+</br>
+É necessário ter instalado node e mysql para rodar as queries, o banco de dados está no arquivo <strong>Storage.manager.sql</strong>
 
 Na rota /products ou products/:id, você pode procurar todos os produtos cadastrados ou um específico.
 </br>
