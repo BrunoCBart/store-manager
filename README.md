@@ -11,10 +11,7 @@ Na rota /products ou products/:id, você pode procurar todos os produtos cadastr
  
 
 Na rota /sales ou sales/:id, todas as vendas efetuadas ou uma específica.
- </br>
- </br>
-<img src="https://github.com/BrunoCBart/store-manager/blob/master/images/sales.jpg">
-
+</br>
 Na rota /products Você pode criar um novo produto usando o método POST
 </br>
 Na rota /sales Você pode efetuar uma venda usando o método POST
