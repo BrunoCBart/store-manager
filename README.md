@@ -25,7 +25,6 @@ As seguintes ferramentas foram utilizadas na construção do projeto:
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources)
 - [expressJs](https://expressjs.com/pt-br/)
 - [Node.js](https://nodejs.org/en/)
-- [Body-parser](https://www.npmjs.com/package/body-parser)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 - [Joi](https://joi.dev/)
 - [Mysql2](https://www.npmjs.com/package/mysql2)
