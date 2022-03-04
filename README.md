@@ -53,7 +53,7 @@ Para utilizar o banco de dados na aplicação, renomeie o arquive .env.example p
 ```bash
 # Clone este repositório
 # Foi utilizado SSH
-$ git clone git@github.com:MarcoMecenasFilho/storemanager
+$ git clone git@github.com:BrunoCBart/store-manager.git
 
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd storemanager
