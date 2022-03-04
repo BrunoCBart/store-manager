@@ -46,8 +46,8 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 Para criar o banco de dados, copie todo o conteúdo do arquivo StoreManager.sql e
 cole no  workbench. Rode todas as query, assim o banco estará online localmente.
-Para utilizar o banco de dados na aplicação, vá para a pasta /models/connections
-e modifique os dados para que se conecte com o seu banco de dados.
+Para utilizar o banco de dados na aplicação, renomeie o arquive .env.example para
+.env e modifique os dados necessários.
 
 ###  Rodando a aplicação .
 
