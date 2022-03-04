@@ -1,5 +1,4 @@
 # store-manager
-<img src='./images/logo.gif' width="100%">
 <br>
 <hr>
 
@@ -47,8 +46,8 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 Para criar o banco de dados, copie todo o conteúdo do arquivo StoreManager.sql e
 cole no  workbench. Rode todas as query, assim o banco estará online localmente.
-Para utilizar o banco de dados na aplicação. Renomeio o arquivo .env.example para .env
-e troque as informações para as que foram criadas quando o MySQL foi configurado. O PORT deve permanecer 3000.
+Para utilizar o banco de dados na aplicação, vá para a pasta /models/connections
+e modifique os dados para que se conecte com o seu banco de dados.
 
 ###  Rodando a aplicação .
 
@@ -933,7 +932,7 @@ Quando "productId" não é um numero inteiro.
 + Response 422 (application/json)
 
           {
-               "message": "\"productId\" must an integer"
+               "message": "\"productId\" must be an integer"
           }
 
 Quando "productId" não é um numero positivo.
