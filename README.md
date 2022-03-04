@@ -970,4 +970,4 @@ Id de um  produto que não existe /products/89
           }
 
 
- - Este projeto foi feito com muita dedicação e carinho por Marco Mecenas  [Entre em contato!](https://www.linkedin.com/in/marcomecenasfilho/).
+ - Este projeto foi feito com muita dedicação e carinho por Marco Mecenas  [Entre em contato!](https://www.linkedin.com/in/brunobartolomeu/).
