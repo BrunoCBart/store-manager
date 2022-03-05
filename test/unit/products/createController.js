@@ -9,6 +9,7 @@ describe('Cria produtos do no CONTROLLER', () => {
    
   const request = {}
   const response = {}
+  const next = sinon.stub().returns()
 
   before(() => {
     request.body = {}
@@ -59,6 +60,23 @@ describe('Cria produtos do no CONTROLLER', () => {
       expect(response.json.calledWith(newProduct)).to.be.deep.eq(true)
     })
   })
+
+  describe("Testa caso de erro", () => {
+
+    before(() => {
+      sinon.stub(productsService, 'create').throws(new Error('Erro de conexao'));
+    })
+
+    after(() => {
+      productsService.create.restore()
+    })
+    it("throw error", async () => {
+      await productsController.create(request, response, next)
+
+      expect(next.firstCall.firstArg.message).to.be.eq('Erro de conexao')
+
+    });
+  });
 
 
 })
