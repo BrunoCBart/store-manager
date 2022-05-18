@@ -50,6 +50,9 @@ Para utilizar o banco de dados na aplicação, renomeie o arquive .env.example p
 
 ###  Rodando a aplicação .
 
+<strong>Adicione um arquvio .env de acordo com o .env.example!</strong>
+<br>
+
 ```bash
 # Clone este repositório
 # Foi utilizado SSH
